@@ -24,6 +24,7 @@ class BotcointAPI:
         :return:
         """
         try:
+            print("wait...")
             response = requests.get(BASE_URL+"/api/bots/unchecked_events", cookies=self.cookies)
             print('RESPONSE: ', response.text)
             data = json.loads(response.text)
@@ -35,10 +36,13 @@ class BotcointAPI:
             return addict.Dict()
 
 
-    def send_message(self, message):
+    def send_message(self, data):
         """
         Отправка сообщения
         :param message: сообщение
         :return:
         """
-        r = requests.post(BASE_URL+"/api/bots/messages", cookies=self.cookies, data=message)
+        data = json.dumps(data)
+        r = requests.post(BASE_URL+"/api/bots/messages", cookies=self.cookies, data=data)
+        print(r)
+        print(r.text)
